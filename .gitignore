@@ -1,0 +1,67 @@
+# ── Unity ──────────────────────────────────────────────────────────
+# 챕터별로 Unity 프로젝트가 하위 디렉터리에 있으므로 경로를 고정하지 않는다.
+# (앞에 `/`가 없는 패턴은 모든 디렉터리 깊이에서 매칭된다.)
+
+# 에디터가 재생성하는 캐시/중간 산출물
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# 에셋 임포트 캐시 (Asset Pipeline v2)
+**/[Aa]ssets/AssetStoreTools*
+**/[Aa]ssets/[Ss]treamingAssets/aa.meta
+**/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Unity 크래시 복구 산출물
+**/[Aa]ssets/_[Rr]ecovery/
+**/[Aa]ssets/_[Rr]ecovery.meta
+mono_crash.*
+sysinfo.txt
+crashlytics-build.properties
+
+# Visual Studio / Rider / VS Code 가 생성하는 프로젝트 파일
+.vs/
+.idea/
+.vscode/
+.gradle/
+ExportedObj/
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# 빌드 결과물
+*.apk
+*.aab
+*.unitypackage
+*.unitypackage.meta
+*.app
+
+# ── macOS ──────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ── 기타 ───────────────────────────────────────────────────────────
+*.log
+
+# ── 에이전트 로컬 설정 ──────────────────────────────────────────────
+.claude/settings.local.json
