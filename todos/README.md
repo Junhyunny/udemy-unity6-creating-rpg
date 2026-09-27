@@ -18,6 +18,12 @@
 - [ ] [OnDrawGizmos는 언제 호출되는가](./chapter-007/ondrawgizmos-call-timing.md)
 - [ ] [Gizmos — 에디터 시각화 도구](./chapter-007/gizmos-debug-visualization.md)
 - [ ] [Physics2D와 Raycast](./chapter-007/physics2d-raycast.md)
+- [ ] [배열(Array)과 List\<T\>의 차이](./chapter-007/array-vs-list.md)
+- [ ] [Physics2D.OverlapCircleAll](./chapter-007/physics2d-overlapcircleall.md)
+
+`Assets/Damaged_Example.cs`
+
+- [ ] [Invoke와 지연 호출](./chapter-007/invoke-and-delayed-calls.md)
 
 `Assets/Example.cs`
 
