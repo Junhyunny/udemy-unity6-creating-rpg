@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // TODO: [todos/chapter-007/physics-material-2d-and-materials.md](../../todos/chapter-007/physics-material-2d-and-materials.md)
@@ -20,8 +22,18 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isGrounded;
     // TODO: [todos/chapter-007/layer-and-layermask.md](../../todos/chapter-007/layer-and-layermask.md)
     [SerializeField] private LayerMask whatIsGround;
+    
     private bool canMove = true;
     private bool canJump = true;
+
+    // TODO: [todos/chapter-007/array-vs-list.md](../../todos/chapter-007/array-vs-list.md)
+    // public Collider2D[] enemies;
+    // public List<Collider2D> enemyList;
+
+    [Header("Attack details")]
+    [SerializeField] private float attackRadius;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private LayerMask whatIsEnermy;
 
     private void Awake()
     {
@@ -50,6 +62,17 @@ public class Player : MonoBehaviour
         //     // TODO: [todos/chapter-007/jump-linearvelocity-vs-addforce.md](../../todos/chapter-007/jump-linearvelocity-vs-addforce.md)
         //     rb.AddForce(Vector2.up * 5.0f, ForceMode2D.Impulse);
         // }
+    }
+
+    public void DamageEnemies()
+    {
+        // TODO: [todos/chapter-007/physics2d-overlapcircleall.md](../../todos/chapter-007/physics2d-overlapcircleall.md)
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, whatIsEnermy);
+        foreach (var enemy in enemies)
+        {   
+            Debug.Log("enermies loop");
+            enemy.GetComponent<Damaged_Example>().TakeDamage();
+        }
     }
 
     public void EnableMovementAndJump(bool enable)
@@ -130,6 +153,7 @@ public class Player : MonoBehaviour
     {
         // TODO: [todos/chapter-007/gizmos-debug-visualization.md](../../todos/chapter-007/gizmos-debug-visualization.md)
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -groundCheckDistance));
+        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
 
     private void HandleCollision()
