@@ -17,12 +17,12 @@ public class Example : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Update was called");
+        // Debug.Log("Update was called");
     }
 
     // TODO: [todos/chapter-007/fixedupdate-and-fixed-timestep.md](../../todos/chapter-007/fixedupdate-and-fixed-timestep.md)
     private void FixedUpdate()
     {
-        Debug.Log("FixedUpdate was called");
+        // Debug.Log("FixedUpdate was called");
     }
 }
