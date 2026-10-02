@@ -70,8 +70,10 @@ public class Player : MonoBehaviour
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, whatIsEnermy);
         foreach (var enemy in enemies)
         {   
+            var enemyComponent = enemy.GetComponent<Damaged_Example>();
             Debug.Log("enermies loop");
-            enemy.GetComponent<Damaged_Example>().TakeDamage();
+            enemyComponent.TakeDamage();
+            // Debug.Log(enemyComponent.GetEnemyName() + " is attacked");
         }
     }
 

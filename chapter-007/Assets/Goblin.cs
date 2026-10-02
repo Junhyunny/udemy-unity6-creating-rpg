@@ -8,12 +8,12 @@ public class Goblin : Enemy
         Debug.Log("steal money");
     }
 
-    [ContextMenu("SpecialAttack")]
-    private void SpecialAttack()
-    {
-        StealMoney();
-        Attack();
-    }
+    // [ContextMenu("SpecialAttack")]
+    // private void SpecialAttack()
+    // {
+    //     StealMoney();
+    //     Attack();
+    // }
 
     protected override void Attack()
     {

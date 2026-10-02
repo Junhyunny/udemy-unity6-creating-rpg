@@ -20,8 +20,13 @@ public class Enemy : MonoBehaviour
         Debug.Log(enemyName + " move at speed " + moveSpeed);
     }
 
-    protected void Attack()
+    protected virtual void Attack()
     {
         Debug.Log(enemyName + " attacks!");
+    }
+
+    public string GetEnemyName()
+    {
+        return enemyName;
     }
 }
