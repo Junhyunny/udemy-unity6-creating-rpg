@@ -38,6 +38,12 @@
 
 챕터의 전반적인 개념 정리는 [`docs/chapter-007/`](../docs/chapter-007/README.md)에 있다.
 
+## chapter-025 — 상태 머신
+
+`Assets/Player.cs`, `Assets/EntityState.cs`
+
+- [ ] [상태 머신의 순환 참조와 설계 선택](./chapter-025/state-machine-circular-references.md)
+
 ## 추가 학습
 
 - [Unity 6의 두 입력 시스템 — Input Manager와 Input System](./chapter-007/unity-input-systems.md)
