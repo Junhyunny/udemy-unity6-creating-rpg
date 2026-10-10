@@ -12,7 +12,7 @@ public class PlayerAnimationTriggers : MonoBehaviour
 
     public void CurrentStateTrigger()
     {
-        Debug.Log("Attack was over");
+        Debug.Log("========= Attack was over");
         player.CallAnimationTrigger();
     }
 }

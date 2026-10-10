@@ -1,9 +1,8 @@
 using System;
-using Unity.AppUI.UI;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityPipeline.Microsoft.CodeAnalysis.CSharp.Syntax;
 
 // TODO: [todos/chapter-025/state-machine-circular-references.md](../../todos/chapter-025/state-machine-circular-references.md)
 public class Player : MonoBehaviour
@@ -21,11 +20,14 @@ public class Player : MonoBehaviour
     public PlayerWallJumpState wallJumpState { get; private set; }
     public PlayerDashState dashState { get; private set; }
     public PlayerBasicAttackState basicAttackState { get; private set; }
+    public PlayerJumpAttackState jumpAttackState { get; private set; }
 
     [Header("Attack details")]
     public Vector2[] attackVelocity;
+    public Vector2 jumpAttackVelocity;
     public float attackVelocityDuration = .1f;
     public float comboResetTime = 0.5f;
+    private Coroutine queuedAttackCo;
 
     [Header("Movement Detail")]
     public float moveSpeed = 8f;
@@ -47,6 +49,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private Transform primaryWallCheck;
+    [SerializeField] private Transform secondaryWallCheck;
     public bool isGroundDetected = false;
     public bool isWallDetected = false;
 
@@ -65,6 +69,7 @@ public class Player : MonoBehaviour
         wallJumpState = new PlayerWallJumpState(this, stateMachine);
         dashState = new PlayerDashState(this, stateMachine);
         basicAttackState = new PlayerBasicAttackState(this, stateMachine);
+        jumpAttackState = new PlayerJumpAttackState(this, stateMachine);
     }
 
     void OnEnable()
@@ -113,6 +118,21 @@ public class Player : MonoBehaviour
         stateMachine.currentState.Update();
     }
 
+    public void EnterAttackStateWithDelay()
+    {
+        if (queuedAttackCo != null)
+        {
+            StopCoroutine(queuedAttackCo);
+        }
+        queuedAttackCo = StartCoroutine(EnterAttackStateWithDelayCo());
+    }
+
+    private IEnumerator EnterAttackStateWithDelayCo()
+    {
+        yield return new WaitForEndOfFrame();
+        stateMachine.ChangeState(basicAttackState);
+    }
+
     private void SetVelocity(float xVelocity, float yVelocity)
     {
         rb.linearVelocity = new Vector2(xVelocity, yVelocity);
@@ -150,6 +170,11 @@ public class Player : MonoBehaviour
         return input.Player.Jump.WasPressedThisFrame();
     }
 
+    public bool WasAttackPressed()
+    {
+        return input.Player.Attack.WasPressedThisFrame();
+    }
+
     public float GetYVelocity()
     {
         return rb.linearVelocityY;
@@ -172,13 +197,15 @@ public class Player : MonoBehaviour
 
     internal bool IsOnWall()
     {
-        return Physics2D.Raycast(transform.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+        return Physics2D.Raycast(primaryWallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround)
+        && Physics2D.Raycast(secondaryWallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -groundCheckDistance));
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(wallCheckDistance * facingDirection, 0));
+        Gizmos.DrawLine(primaryWallCheck.position, primaryWallCheck.position + new Vector3(wallCheckDistance * facingDirection, 0));
+        Gizmos.DrawLine(secondaryWallCheck.position, secondaryWallCheck.position + new Vector3(wallCheckDistance * facingDirection, 0));
     }
 
     public void Aired()
@@ -234,5 +261,15 @@ public class Player : MonoBehaviour
     internal void GenerateAttackVelocity(int index)
     {
         SetVelocity(attackVelocity[index].x * facingDirection, attackVelocity[index].y);
+    }
+
+    internal void JumpAttack()
+    {
+        SetVelocity(0, rb.linearVelocityY);
+    }
+
+    internal void SetJumpAttackVelocity()
+    {
+        SetVelocity(jumpAttackVelocity.x * facingDirection, jumpAttackVelocity.y);
     }
 }

@@ -16,7 +16,7 @@ public class PlayerWallJumpState : PlayerAiredState
     public override void Update()
     {
         base.Update();
-        if(player.IsFalling())
+        if(player.IsFalling() && stateMachine.currentState != player.jumpAttackState)
         {
             stateMachine.ChangeState(player.fallState);
         }

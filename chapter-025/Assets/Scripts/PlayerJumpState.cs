@@ -16,8 +16,9 @@ public class PlayerJumpState : PlayerAiredState
     public override void Update()
     {
         base.Update();
-        if (player.IsFalling())
+        if (player.IsFalling() && stateMachine.currentState != player.jumpAttackState)
         {
+            Debug.Log("I transfer to fall state. Frame is " + Time.frameCount);
             stateMachine.ChangeState(player.fallState);
         }
     }

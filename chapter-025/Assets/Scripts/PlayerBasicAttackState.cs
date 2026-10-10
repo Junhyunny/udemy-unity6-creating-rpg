@@ -1,4 +1,5 @@
 
+using Mono.Cecil.Cil;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class PlayerBasicAttackState : EntityState
 {
     private float attackVelocityTimer;
     private int comboIndex = 0;
+    private int attackDir;
     private int comboLimit = 3;
     private float lastTimeAttacked;
     private bool comboattackQueued;
@@ -19,6 +21,14 @@ public class PlayerBasicAttackState : EntityState
         base.Enter();
         comboattackQueued = false;
         ResetComboIndexIfNeeded();
+        if(player.moveInput.x != 0)
+        {
+            attackDir = (int)player.moveInput.x;
+        }
+        else
+        {
+            attackDir = player.facingDirection;
+        }
         animator.SetInteger("basicAttackIndex", comboIndex);
         ApplyAttackVelocity();
     }
@@ -34,9 +44,14 @@ public class PlayerBasicAttackState : EntityState
         if (triggerCalled)
         {
             if (comboattackQueued)
-                stateMachine.ChangeState(player.basicAttackState);
+            {
+                animator.SetBool(animationStateName, false);
+                player.EnterAttackStateWithDelay();
+            }
             else
+            {
                 stateMachine.ChangeState(player.idleState);
+            }
         }
     }
 
@@ -45,6 +60,11 @@ public class PlayerBasicAttackState : EntityState
         base.Exit();
         comboIndex = (comboIndex + 1) % comboLimit;
         lastTimeAttacked = Time.time;
+    }
+
+    private void QueueNextAttack()
+    {
+        if(comboIndex< comboLimit) {}
     }
 
     private void ResetComboIndexIfNeeded()
