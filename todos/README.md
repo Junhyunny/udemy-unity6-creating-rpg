@@ -44,9 +44,10 @@
 
 - [ ] [상태 머신의 순환 참조와 설계 선택](./chapter-025/state-machine-circular-references.md)
 
-## chapter-045 — 타일맵과 2D 콜라이더
+## chapter-045 — 타일맵과 2D 카메라
 
 - [ ] [Composite Collider 2D의 Geometry Type: Polygons와 Outlines](./chapter-045/composite-collider-geometry-type.md)
+- [ ] [Cinemachine 카메라 설치와 2D 타겟 추적·화면 구도](./chapter-045/cinemachine-camera-and-position-composer.md)
 
 ## 추가 학습
 
