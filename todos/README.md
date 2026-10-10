@@ -1,6 +1,6 @@
 # 학습 TODO
 
-강의 중 스크립트에 남긴 `TODO` 질문을 챕터별로 정리한 문서 모음. 원본 주석은 해당 문서를 가리키는 링크로 바뀌어 있다.
+강의 중 스크립트에 남긴 `TODO` 질문과 별도로 요청한 학습 주제를 챕터별로 정리한 문서 모음. 스크립트의 원본 TODO 주석은 해당 문서를 가리키는 링크로 바뀌어 있다.
 
 ## chapter-007 — 컴포넌트와 2D 물리
 
@@ -43,6 +43,10 @@
 `Assets/Player.cs`, `Assets/EntityState.cs`
 
 - [ ] [상태 머신의 순환 참조와 설계 선택](./chapter-025/state-machine-circular-references.md)
+
+## chapter-045 — 타일맵과 2D 콜라이더
+
+- [ ] [Composite Collider 2D의 Geometry Type: Polygons와 Outlines](./chapter-045/composite-collider-geometry-type.md)
 
 ## 추가 학습
 
