@@ -49,6 +49,10 @@
 - [ ] [Composite Collider 2D의 Geometry Type: Polygons와 Outlines](./chapter-045/composite-collider-geometry-type.md)
 - [ ] [Cinemachine 카메라 설치와 2D 타겟 추적·화면 구도](./chapter-045/cinemachine-camera-and-position-composer.md)
 
+`Assets/Scripts/ParallaxLayer.cs`
+
+- [ ] [패럴랙스 배경의 이동과 무한 반복 계산식](./chapter-045/parallax-background-loop-math.md)
+
 ## 추가 학습
 
 - [Unity 6의 두 입력 시스템 — Input Manager와 Input System](./chapter-007/unity-input-systems.md)
