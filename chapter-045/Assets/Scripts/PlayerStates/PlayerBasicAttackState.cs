@@ -3,7 +3,7 @@ using Mono.Cecil.Cil;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerBasicAttackState : EntityState
+public class PlayerBasicAttackState : PlayerState
 {
     private float attackVelocityTimer;
     private int comboIndex = 0;

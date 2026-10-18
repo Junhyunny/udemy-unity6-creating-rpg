@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerGroundedState : EntityState
+public class PlayerGroundedState : PlayerState
 {
     public PlayerGroundedState(Player player, StateMachine stateMachine, string animationStateName) : base(player, stateMachine, animationStateName)
     {

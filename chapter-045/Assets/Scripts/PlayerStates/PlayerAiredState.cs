@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerAiredState : EntityState
+public class PlayerAiredState : PlayerState
 {
     public PlayerAiredState(Player player, StateMachine stateMachine, string animationStateName) : base(player, stateMachine, animationStateName)
     {

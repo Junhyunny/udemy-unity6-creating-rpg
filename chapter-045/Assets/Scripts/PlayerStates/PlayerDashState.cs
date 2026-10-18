@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
 
-public class PlayerDashState : EntityState
+public class PlayerDashState : PlayerState
 
 {
     public PlayerDashState(Player player, StateMachine stateMachine) : base(player, stateMachine, "dash")
