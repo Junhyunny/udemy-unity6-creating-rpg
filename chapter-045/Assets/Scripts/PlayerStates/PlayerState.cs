@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-// TODO: [todos/chapter-025/state-machine-circular-references.md](../../todos/chapter-025/state-machine-circular-references.md)
+// TODO: [todos/chapter-025/state-machine-circular-references.md](../../../todos/chapter-025/state-machine-circular-references.md)
 public abstract class PlayerState : EntityState
 {
 
@@ -15,11 +14,16 @@ public abstract class PlayerState : EntityState
     public override void Update()
     {
         base.Update();
-        animator.SetFloat("yVelocity", player.GetYVelocity());
         if (player.IsDashPressed() && CanDash())
         {
             stateMachine.ChangeState(player.dashState);
         }
+    }
+
+    public override void UpdateAnimationParameters()
+    {
+        base.UpdateAnimationParameters();
+        animator.SetFloat("yVelocity", player.GetYVelocity());
     }
 
 

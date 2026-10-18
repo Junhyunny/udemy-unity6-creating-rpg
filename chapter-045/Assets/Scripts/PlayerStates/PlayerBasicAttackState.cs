@@ -1,6 +1,4 @@
 
-using Mono.Cecil.Cil;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerBasicAttackState : PlayerState

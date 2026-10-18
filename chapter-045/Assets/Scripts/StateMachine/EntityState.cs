@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public abstract class EntityState
@@ -6,7 +5,7 @@ public abstract class EntityState
 
     protected Animator animator;
     protected StateMachine stateMachine;
-    protected float startTime = 0;
+    protected float stateTimer = 0;
     protected string animationStateName;
     protected bool triggerCalled;
 
@@ -21,11 +20,12 @@ public abstract class EntityState
     {
         animator.SetBool(animationStateName, true);
         triggerCalled = false;
+        UpdateAnimationParameters();
     }
 
     public virtual void Update()
     {
-        startTime -= Time.deltaTime;
+        stateTimer -= Time.deltaTime;
     }
 
     public virtual void Exit()
@@ -33,8 +33,13 @@ public abstract class EntityState
         animator.SetBool(animationStateName, false);
     }
 
-    public void CallAnimationTrigger()
+    public void AnimationTrigger()
     {
         triggerCalled = true;
+    }
+
+    public virtual void UpdateAnimationParameters()
+    {
+        
     }
 }

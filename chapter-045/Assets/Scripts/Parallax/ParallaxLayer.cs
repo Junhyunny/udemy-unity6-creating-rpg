@@ -22,7 +22,7 @@ public class ParallaxLayer
           background.position += Vector3.right * (distanceToMove * parallaxMultiplier);
      }
 
-     // TODO: [todos/chapter-045/parallax-background-loop-math.md](../../../todos/chapter-045/parallax-background-loop-math.md)
+     // TODO: [todos/chapter-045/parallax-background-loop-math.md](../../../../todos/chapter-045/parallax-background-loop-math.md)
      public void LoopBackground(float cameraLeftEdge, float cameraRightEdge)
      {
           float imageRightEdge = (background.position.x + imageHalfWidth) - imageWidthOffset;

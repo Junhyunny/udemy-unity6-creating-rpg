@@ -15,31 +15,32 @@ public class Entity : MonoBehaviour
     [Header("Collision Detection")]
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private float wallCheckDistance;
-    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] protected LayerMask whatIsGround;
+    [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform primaryWallCheck;
     [SerializeField] private Transform secondaryWallCheck;
     public bool isGroundDetected = false;
     public bool isWallDetected = false;
 
-    public virtual void Awake()
+    protected virtual void Awake()
     {
-        // TODO, 강의에서 애니메이터를 먼저 찾지 않으면 제대로 상태가 할당되지 않는다는 이야기를 하던데, 어떤 내용이지? 컴포넌트를 먼저 메모리에 로딩하지 않으면 어떤 문제가 있는지 이해할 수 있도록 쉽게 설명해줘. 
+        // TODO: [todos/chapter-045/component-reference-before-state-creation.md](../../../todos/chapter-045/component-reference-before-state-creation.md)
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         stateMachine = new StateMachine();
     }
 
-    public virtual void Start()
+    protected virtual void Start()
     { }
 
-    void Update()
+    protected virtual void Update()
     {
         isGroundDetected = IsOnGround();
         isWallDetected = IsOnWall();
         stateMachine.currentState.Update();
     }
 
-    protected void SetVelocity(float xVelocity, float yVelocity)
+    public void SetVelocity(float xVelocity, float yVelocity)
     {
         rb.linearVelocity = new Vector2(xVelocity, yVelocity);
     }
@@ -51,7 +52,7 @@ public class Entity : MonoBehaviour
         facingDirection = facingDirection * -1;
     }
 
-    protected void HandleFlip(float xVelocity)
+    public void HandleFlip(float xVelocity)
     {
         if (xVelocity > 0 && facingRight == false)
         {
@@ -75,26 +76,25 @@ public class Entity : MonoBehaviour
 
     internal bool IsOnGround()
     {
-        return Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
+        return Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
     }
 
     internal bool IsOnWall()
     {
-        return Physics2D.Raycast(primaryWallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround)
-        && Physics2D.Raycast(secondaryWallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+        if (secondaryWallCheck != null)
+        {
+            return Physics2D.Raycast(primaryWallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround)
+            && Physics2D.Raycast(secondaryWallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+        }
+        return Physics2D.Raycast(primaryWallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
     }
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -groundCheckDistance));
+        Gizmos.DrawLine(groundCheck.position, groundCheck.position + new Vector3(0, -groundCheckDistance));
         Gizmos.DrawLine(primaryWallCheck.position, primaryWallCheck.position + new Vector3(wallCheckDistance * facingDirection, 0));
         Gizmos.DrawLine(secondaryWallCheck.position, secondaryWallCheck.position + new Vector3(wallCheckDistance * facingDirection, 0));
     }
-
-    // public void Aired()
-    // {
-    //     SetVelocity(moveInput.x * (moveSpeed * inAirMoveMultiplier), this.rb.linearVelocity.y);
-    // }
 
     public void StopMovement()
     {
@@ -111,9 +111,9 @@ public class Entity : MonoBehaviour
         SetVelocity(0, 0);
     }
 
-    public void CallAnimationTrigger()
+    public void CurrentStateAnimationTrigger()
     {
-        stateMachine.currentState.CallAnimationTrigger();
+        stateMachine.currentState.AnimationTrigger();
     }
 
     internal void StopForAttack()

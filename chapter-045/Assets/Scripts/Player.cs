@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// TODO: [todos/chapter-025/state-machine-circular-references.md](../../todos/chapter-025/state-machine-circular-references.md)
+// TODO: [todos/chapter-025/state-machine-circular-references.md](../../../todos/chapter-025/state-machine-circular-references.md)
 public class Player : Entity
 {
     private PlayerInputSet input;
@@ -36,10 +35,9 @@ public class Player : Entity
     public float dashDuration = 0.25f;
     public float dashSpeed = 20;
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
-        // TODO, 강의에서 애니메이터를 먼저 찾지 않으면 제대로 상태가 할당되지 않는다는 이야기를 하던데, 어떤 내용이지? 컴포넌트를 먼저 메모리에 로딩하지 않으면 어떤 문제가 있는지 이해할 수 있도록 쉽게 설명해줘. 
         input = new PlayerInputSet();
         idleState = new PlayerIdleState(this, stateMachine);
         moveState = new PlayerMoveState(this, stateMachine);
@@ -101,7 +99,7 @@ public class Player : Entity
         stateMachine.ChangeState(basicAttackState);
     }
 
-    public virtual void Start()
+    protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(idleState);

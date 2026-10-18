@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Rendering.Universal.Internal;
 
 public class PlayerDashState : PlayerState
 
@@ -12,7 +10,7 @@ public class PlayerDashState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        startTime = player.dashDuration;
+        stateTimer = player.dashDuration;
     }
 
     public override void Update()
@@ -20,7 +18,7 @@ public class PlayerDashState : PlayerState
         base.Update();
         CancelDashIfNeeded();
         player.Dash();
-        if (startTime < 0)
+        if (stateTimer < 0)
         {
             if (player.isGroundDetected)
             {
