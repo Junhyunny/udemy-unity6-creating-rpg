@@ -49,9 +49,17 @@
 - [ ] [Composite Collider 2D의 Geometry Type: Polygons와 Outlines](./chapter-045/composite-collider-geometry-type.md)
 - [ ] [Cinemachine 카메라 설치와 2D 타겟 추적·화면 구도](./chapter-045/cinemachine-camera-and-position-composer.md)
 
-`Assets/Scripts/ParallaxLayer.cs`
+`Assets/Scripts/Parallax/ParallaxLayer.cs`
 
 - [ ] [패럴랙스 배경의 이동과 무한 반복 계산식](./chapter-045/parallax-background-loop-math.md)
+
+`Assets/Scripts/Entity.cs`
+
+- [ ] [상태를 만들기 전에 Animator를 먼저 찾아야 하는 이유](./chapter-045/component-reference-before-state-creation.md)
+
+`Assets/Scripts/PlayerStates/PlayerMoveState.cs`
+
+- [ ] [상태 클래스가 속도를 직접 계산할까, Player에게 맡길까](./chapter-045/state-velocity-responsibility.md)
 
 ## 추가 학습
 
